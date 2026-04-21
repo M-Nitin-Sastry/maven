@@ -10,7 +10,8 @@ pipeline {
 
         stage('Checkout') {
             steps {
-                git 'https://github.com/M-Nitin-Sastry/demo-app1.git'
+                git branch: 'main', url:'https://github.com/akashalternate/mavn.git',
+                credentialsId: 'github-token'
             }
         }
 
@@ -29,6 +30,13 @@ pipeline {
         stage('Package') {
             steps {
                 sh 'mvn package'
+            }
+        
+        
+        }
+        stage('Run Application') {
+            steps {
+                sh 'mvn exec:java -Dexec.mainClass="com.example.app.App"'
             }
         }
     }
